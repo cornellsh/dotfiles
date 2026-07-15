@@ -27,8 +27,7 @@
     "npm:@ff-labs/pi-fff",
     "npm:@gotgenes/pi-subagents",
     "npm:@juicesharp/rpiv-btw",
-    "npm:@quintinshaw/pi-dynamic-workflows",
-    "npm:pi-search-hub"
+    "npm:@quintinshaw/pi-dynamic-workflows"
   ],
   "lastChangelogVersion": "0.80.7"
 }
