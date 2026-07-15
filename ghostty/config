@@ -7,12 +7,12 @@ font-size = 14
 font-thicken = true
 adjust-cell-height = 14%
 
-# --- Apple macOS dark palette ---
+# --- Apple macOS dark palette (neutral, monochrome chrome) ---
 background = #1d1d1f
 foreground = #e8e8ed
-cursor-color = #0a84ff
+cursor-color = #e8e8ed
 cursor-text = #1d1d1f
-selection-background = #2f3b52
+selection-background = #3a3a3c
 selection-foreground = #ffffff
 
 # normal

@@ -1,11 +1,12 @@
 # ~/.config/starship.toml — symlinked from ~/dotfiles/starship.toml
-# Minimal, macOS-restrained prompt. Muted Apple system colors, no powerline, no badges.
+# Native macOS restraint: monochrome. White/gray text, no accent color.
+# Only red appears, and only when the last command failed.
 
 add_newline = true
 format = "$directory$git_branch$git_status$cmd_duration$character"
 
 [directory]
-style = "#0a84ff"          # system blue, understated
+style = "#e8e8ed"          # soft white — like native macOS text
 truncation_length = 3
 truncate_to_repo = true
 read_only = " 󰌾"
@@ -13,7 +14,7 @@ format = "[$path]($style)[$read_only](#8e8e93) "
 
 [git_branch]
 symbol = ""
-style = "#8e8e93"          # system gray
+style = "#8e8e93"          # system gray, understated
 format = "[$branch]($style) "
 
 [git_status]
@@ -35,6 +36,6 @@ style = "#636366"
 format = "[$duration]($style) "
 
 [character]
-success_symbol = "[❯](#0a84ff)"
-error_symbol = "[❯](#ff453a)"
-vicmd_symbol = "[❮](#30d158)"
+success_symbol = "[❯](#e8e8ed)"   # white
+error_symbol = "[❯](#ff453a)"     # red only on failure
+vicmd_symbol = "[❮](#8e8e93)"
