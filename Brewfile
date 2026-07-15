@@ -24,6 +24,9 @@ brew "coreutils"             # GNU utils, g-prefixed (gsed, gdate, ...)
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
+# --- Fonts ---
+cask "font-jetbrains-mono-nerd-font"
+
 # --- GUI apps ---
 cask "ghostty"               # terminal
 cask "visual-studio-code"
@@ -32,4 +35,6 @@ cask "raycast"               # launcher / Spotlight replacement
 cask "alt-tab"               # window-level ⌘-Tab
 cask "rectangle"             # keyboard window snapping
 cask "maccy"                 # clipboard history
+cask "jordanbaird-ice"       # menu bar manager (Bartender alternative)
+cask "stats"                 # menu bar system monitor
 cask "karabiner-elements"    # key remapping (PrtSc → screenshot-to-clipboard)

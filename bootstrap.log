@@ -1,2 +1,43 @@
 ==> Installing Brewfile packages
 Fetching git, gh, ripgrep, fd, eza, bat, zoxide, fzf, git-delta, jq, yq, starship, mise, uv, tmux, htop, curl, wget, coreutils, zsh-autosuggestions, zsh-syntax-highlighting, ghostty, visual-studio-code, orbstack, raycast, alt-tab, rectangle, maccy, karabiner-elements
+Installing git
+Installing gh
+Installing zsh-autosuggestions
+Installing zsh-syntax-highlighting
+Installing ripgrep
+Installing fzf
+Installing ghostty
+Installing visual-studio-code
+Installing fd
+Installing orbstack
+Installing raycast
+Installing alt-tab
+Installing eza
+Installing rectangle
+Installing maccy
+Installing karabiner-elements
+Installing karabiner-elements has failed!
+==> Fetching downloads for: karabiner-elements
+✔︎ Cask karabiner-elements (16.1.0)
+==> Installing Cask karabiner-elements
+==> Running installer for karabiner-elements with `sudo` (which may request your password)...
+sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+Error: Failure while executing; `/usr/bin/sudo -u root -E LOGNAME=cornell USER=cornell USERNAME=cornell -- /usr/sbin/installer -pkg /opt/homebrew/Caskroom/karabiner-elements/16.1.0/Karabiner-Elements.pkg -target /` exited with 1. Here's the output:
+sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+==> Purging files for version 16.1.0 of Cask karabiner-elements
+Installing bat
+Installing zoxide
+Installing git-delta
+Installing jq
+Installing yq
+Installing starship
+Installing mise
+Installing uv
+Installing tmux
+Installing htop
+Installing curl
+Installing coreutils
+Installing wget
+`brew bundle` failed! 1 Brewfile dependency failed to install

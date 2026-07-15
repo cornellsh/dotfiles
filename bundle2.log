@@ -1,0 +1,35 @@
+✔︎ JSON API packages.arm64_sequoia.jws.json
+Fetching font-jetbrains-mono-nerd-font, jordanbaird-ice, stats, karabiner-elements
+Using git
+Using gh
+Using zsh-autosuggestions
+Using zsh-syntax-highlighting
+Using ripgrep
+Using fzf
+Using ghostty
+Installing font-jetbrains-mono-nerd-font
+Using fd
+Using visual-studio-code
+Using raycast
+Using orbstack
+Using eza
+Using alt-tab
+Using rectangle
+Using maccy
+Using bat
+Installing jordanbaird-ice
+Installing stats
+Installing karabiner-elements
+Using zoxide
+Using git-delta
+Using jq
+Using yq
+Using starship
+Using mise
+Using uv
+Using tmux
+Using htop
+Using curl
+Using coreutils
+Using wget
+`brew bundle` complete! 32 Brewfile dependencies now installed.

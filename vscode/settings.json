@@ -1,0 +1,41 @@
+{
+  "// theme": "matches Ghostty/terminal — TokyoNight",
+  "workbench.colorTheme": "Tokyo Night",
+  "workbench.iconTheme": "material-icon-theme",
+
+  "// font": "same Nerd Font as the terminal, with ligatures",
+  "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrains Mono', Menlo, monospace",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.6,
+  "editor.fontLigatures": true,
+
+  "// clean UX": "less chrome, calmer editor",
+  "editor.minimap.enabled": false,
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.renderWhitespace": "boundary",
+  "editor.stickyScroll.enabled": true,
+  "workbench.list.smoothScrolling": true,
+  "workbench.editor.showTabs": "multiple",
+  "workbench.tree.indent": 16,
+  "breadcrumbs.enabled": true,
+
+  "// window": "native macOS feel",
+  "window.titleBarStyle": "custom",
+  "window.nativeTabs": false,
+  "window.commandCenter": true,
+
+  "// editing defaults": "",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "explorer.confirmDelete": false,
+
+  "// terminal": "integrated terminal matches",
+  "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font'",
+  "terminal.integrated.fontSize": 13
+}

@@ -13,8 +13,13 @@ brew bundle --file="$DOTFILES/Brewfile"
 
 echo "==> Symlinking configs"
 link "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
+link "$DOTFILES/starship.toml" "$HOME/.config/starship.toml"
+mkdir -p "$HOME/.config/ghostty"
+link "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"
 mkdir -p "$HOME/.config/karabiner"
 link "$DOTFILES/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
+mkdir -p "$HOME/Library/Application Support/Code/User"
+link "$DOTFILES/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 
 echo "==> Applying macOS defaults"
 bash "$DOTFILES/macos/defaults.sh"

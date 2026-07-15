@@ -1,0 +1,31 @@
+# ~/.config/ghostty/config — symlinked from ~/dotfiles/ghostty/config
+
+# Theme — dark, macOS-graphite feel
+theme = TokyoNight
+
+# Font
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+font-thicken = true
+adjust-cell-height = 12%
+
+# Native macOS vibrancy: subtle transparency + blur
+background-opacity = 0.92
+background-blur-radius = 20
+
+# Window chrome
+window-padding-x = 14
+window-padding-y = 12
+window-padding-balance = true
+macos-titlebar-style = tabs
+macos-option-as-alt = true
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+
+# Behavior
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+confirm-close-surface = false
+window-save-state = always
