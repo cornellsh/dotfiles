@@ -16,23 +16,9 @@ cd arch-dotfiles
 | **Config** | everything in `config/` → `~/.config` (niri, waybar, DankMaterialShell, ghostty) |
 | **Systemd** | user services from `systemd/user/` |
 | **Scripts** | `~/scripts` · `~/.local/bin` (incl. `wt`, the worktree manager) |
-| **VS Code** | settings, keybinds, snippets, extensions |
-| **OpenCode** | config, pinned plugins, themes, skills |
-| **Pi** | config, extensions, themes, prompts, packages, skills |
+| **VS Code** | extensions only (from `vscode/extensions-list.txt`); config not managed |
+| **Pi** | config, extensions, themes, prompts, packages, skills (shared, from `../pi`) |
 | **Tmux** | `.tmux.conf` (+ XDG mirror; restarts a stale server) |
-
-## OpenCode — `~/.config/opencode`
-
-`opencode.json` (model, permissions, plugins, MCP) plus pinned plugins and the
-cornell.sh theme. `bun install` runs on setup; `ocx` is installed globally to
-manage registry plugins.
-
-- **Plugins** — `opencode-claude-auth` and a local `worktree` plugin. Its
-  `worktree_create/delete` tools are disabled in favour of the `wt` CLI.
-- **MCP servers** — `lightpanda`, `chrome-devtools`, `telegram` (sources
-  `~/.zsh_secrets`; won't start if the path/secret is absent).
-- **Permissions** — `telegram_send/forward/reply` and `git push` are gated to
-  `ask`; everything else auto-approves.
 
 **Worktrees** — `wt` (`local-bin/wt`): `wt new|fan|go|ls|rm|clean`. Worktrees at
 `~/worktrees/<repo>/<branch>/`, repos scanned under `~/work`. Needs only `git`.
@@ -56,15 +42,15 @@ manage registry plugins.
 `~/.pi/web-search.json` (search API keys) and
 `extensions/clarity/config.json` (Clarity token). Fill them in after install.
 
-No MCP servers. The equivalents are skills in `~/.agents/skills` (shared with
-OpenCode): `agent-browser`, `copy-that-sells`, `cro`, `customer-research`,
-`hubstaff`, `imagegen-cli`, `telegram-tools`.
+Skills live in `~/.agents/skills` (shared, from `../agents`): `agent-browser`,
+`copy-that-sells`, `cro`, `customer-research`, `hubstaff`, `imagegen-cli`,
+`telegram-tools`.
 
 **telegram-tools** — `tg` CLI (Telethon via `uv`): `tg me · chats · read ·
 search · send · reply`. Credentials from the environment or `~/.zsh_secrets`.
 
 ## Requirements
 
-`git` · `zsh` · `tmux` · `node`/`npm` (+ `bun` for OpenCode) · `uv`
-(telegram-tools) · `jq` (pi package install / search keys) · `code` CLI
-(VS Code extensions) · Chrome/Chromium (agent-browser, optional).
+`git` · `zsh` · `tmux` · `node`/`npm` · `uv` (telegram-tools) · `jq` (pi package
+install / search keys) · `code` CLI (VS Code extensions) · Chrome/Chromium
+(agent-browser, optional).

@@ -5,7 +5,7 @@
 
 set -e
 cd "$(dirname "${BASH_SOURCE[0]}")"
-REPO="$(cd .. && pwd)"   # repo root; pi/ and agents/ are shared (not arch-only)
+REPO="$(cd .. && pwd)" # repo root; pi/ and agents/ are shared (not arch-only)
 
 # ─── palette (cornell.sh) ───────────────────────────────────────────────────
 A=$'\033[38;2;189;147;249m' # accent  (purple)
@@ -27,8 +27,7 @@ COMPONENTS=(
 	"config|Config|~/.config — niri · waybar · dms · ghostty"
 	"systemd|Systemd|user services"
 	"scripts|Scripts|~/scripts · ~/.local/bin (wt)"
-	"vscode|VS Code|settings · keybinds · extensions"
-	"opencode|OpenCode|config · plugins · themes · skills"
+	"vscode|VS Code|extensions only (no config)"
 	"pi|Pi|config · extensions · themes · skills"
 	"tmux|Tmux|.tmux.conf"
 )
@@ -122,12 +121,8 @@ install_scripts() {
 
 install_vscode() {
 	say "VS Code"
-	mkdir -p ~/.config/Code/User
-	cp vscode/settings.json vscode/keybindings.json vscode/mcp.json ~/.config/Code/User/ 2>/dev/null || true
-	cp -r vscode/snippets ~/.config/Code/User/ 2>/dev/null || true
-	ok "settings · keybinds · snippets"
 	if command -v code >/dev/null 2>&1; then
-		sub "installing extensions"
+		sub "installing extensions (config intentionally not managed)"
 		while IFS= read -r ext; do
 			[ -z "$ext" ] || [[ "$ext" == *"{"* ]] && continue
 			code --install-extension "$ext" --force >/dev/null 2>&1 || true
@@ -145,24 +140,6 @@ install_skills() {
 	find ~/.agents/skills -name ".git" -type d -exec rm -rf {} + 2>/dev/null || true
 	chmod +x ~/.agents/skills/telegram-tools/tg 2>/dev/null || true
 	ok "skills → ~/.agents/skills"
-}
-
-install_opencode() {
-	say "OpenCode"
-	mkdir -p ~/.config/opencode/.ocx ~/.config/opencode/themes ~/.config/opencode/plugins
-	cp opencode/opencode.json opencode/package.json ~/.config/opencode/
-	cp opencode/dcp.jsonc opencode/ocx.jsonc opencode/.gitignore ~/.config/opencode/ 2>/dev/null || true
-	cp -r opencode/themes/. ~/.config/opencode/themes/ 2>/dev/null || true
-	cp -r opencode/plugins/. ~/.config/opencode/plugins/ 2>/dev/null || true
-	cp opencode/.ocx/receipt.jsonc ~/.config/opencode/.ocx/ 2>/dev/null || true
-	ok "config · plugins · themes"
-	(cd ~/.config/opencode && { command -v bun >/dev/null && bun install || npm install; } >/dev/null 2>&1) || true
-	if ! command -v ocx >/dev/null 2>&1; then
-		sub "installing ocx"
-		{ command -v bun >/dev/null && bun add -g ocx || npm install -g ocx; } >/dev/null 2>&1 || true
-	fi
-	ok "plugins resolved"
-	install_skills
 }
 
 install_pi() {
@@ -246,5 +223,5 @@ if [ "$any" = 0 ]; then
 	exit 0
 fi
 
-printf '\n%s::%s %sdone%s  %s· source ~/.zshrc · restart VS Code · run pi/opencode%s\n\n' \
+printf '\n%s::%s %sdone%s  %s· source ~/.zshrc · restart VS Code · run pi%s\n\n' \
 	"$A" "$N" "$B" "$N" "$D" "$N"

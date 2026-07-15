@@ -7,7 +7,7 @@ Cross-platform dotfiles. Two platform setups plus shared, OS-agnostic config:
 | [`macos/`](macos/) | Apple Silicon / Sequoia dev setup — Homebrew, zsh + starship, Ghostty, Karabiner, VS Code, mise/uv toolchain. |
 | [`arch/`](arch/) | Wayland desktop — niri, waybar, DankMaterialShell, tmux, p10k. |
 | [`pi/`](pi/) | **Shared** — [pi](https://github.com/earendil-works) agent config: settings, extensions, themes, prompts, skills, packages. Installed by both platforms into `~/.pi/agent`. |
-| [`agents/`](agents/) | **Shared** — agent skills (`~/.agents/skills`, used by pi + OpenCode): agent-browser, copy-that-sells, cro, customer-research, hubstaff, imagegen-cli, telegram-tools. |
+| [`agents/`](agents/) | **Shared** — agent skills (`~/.agents/skills`): agent-browser, copy-that-sells, cro, customer-research, hubstaff, imagegen-cli, telegram-tools. |
 
 Secrets are never tracked. `pi/` ships `*.example.json` templates; the installers
 scaffold `~/.pi/web-search.json` and `~/.pi/agent/extensions/clarity/config.json`
