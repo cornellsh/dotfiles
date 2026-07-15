@@ -1,10 +1,10 @@
 {
-  "// theme": "matches Ghostty/terminal — TokyoNight",
-  "workbench.colorTheme": "Tokyo Night",
+  "// theme": "clean, macOS-native — VS Code built-in Default Dark Modern",
+  "workbench.colorTheme": "Default Dark Modern",
   "workbench.iconTheme": "material-icon-theme",
 
-  "// font": "same Nerd Font as the terminal, with ligatures",
-  "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrains Mono', Menlo, monospace",
+  "// font": "Apple SF Mono (ligaturized nerd font), matches the terminal",
+  "editor.fontFamily": "'Liga SFMono Nerd Font', 'SF Mono', Menlo, monospace",
   "editor.fontSize": 14,
   "editor.lineHeight": 1.6,
   "editor.fontLigatures": true,
@@ -36,6 +36,6 @@
   "explorer.confirmDelete": false,
 
   "// terminal": "integrated terminal matches",
-  "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font'",
+  "terminal.integrated.fontFamily": "'Liga SFMono Nerd Font'",
   "terminal.integrated.fontSize": 13
 }

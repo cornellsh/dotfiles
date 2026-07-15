@@ -27,6 +27,7 @@ brew "zsh-syntax-highlighting"
 
 # --- Fonts ---
 cask "font-jetbrains-mono-nerd-font"
+cask "font-sf-mono-nerd-font-ligaturized"  # Apple SF Mono + icons
 
 # --- GUI apps ---
 cask "ghostty"               # terminal

@@ -1,21 +1,46 @@
 # ~/.config/ghostty/config — symlinked from ~/dotfiles/ghostty/config
+# macOS-native aesthetic: Apple graphite + system colors, SF Mono
 
-# Theme — dark, macOS-graphite feel
-theme = TokyoNight
-
-# Font
-font-family = JetBrainsMono Nerd Font
+# Font — Apple SF Mono (ligaturized nerd font build)
+font-family = Liga SFMono Nerd Font
 font-size = 14
 font-thicken = true
-adjust-cell-height = 12%
+adjust-cell-height = 14%
+
+# --- Apple macOS dark palette ---
+background = #1d1d1f
+foreground = #e8e8ed
+cursor-color = #0a84ff
+cursor-text = #1d1d1f
+selection-background = #2f3b52
+selection-foreground = #ffffff
+
+# normal
+palette = 0=#48484a
+palette = 1=#ff453a
+palette = 2=#30d158
+palette = 3=#ffd60a
+palette = 4=#0a84ff
+palette = 5=#bf5af3
+palette = 6=#64d2ff
+palette = 7=#e8e8ed
+# bright
+palette = 8=#8e8e93
+palette = 9=#ff6961
+palette = 10=#5de372
+palette = 11=#ffe066
+palette = 12=#409cff
+palette = 13=#da8fff
+palette = 14=#70d7ff
+palette = 15=#ffffff
 
 # Native macOS vibrancy: subtle transparency + blur
-background-opacity = 0.92
-background-blur-radius = 20
+background-opacity = 0.95
+background-blur-radius = 24
 
-# Window chrome
-window-padding-x = 14
-window-padding-y = 12
+# Window chrome — clean and native
+window-padding-x = 16
+window-padding-y = 14
 window-padding-balance = true
 macos-titlebar-style = tabs
 macos-option-as-alt = true

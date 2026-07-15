@@ -1,80 +1,40 @@
 # ~/.config/starship.toml — symlinked from ~/dotfiles/starship.toml
-# Clean two-line prompt, TokyoNight palette
+# Minimal, macOS-restrained prompt. Muted Apple system colors, no powerline, no badges.
 
 add_newline = true
-palette = "tokyonight"
-
-format = """
-[](fg:base)\
-$directory\
-$git_branch\
-$git_status\
-$nodejs$python$golang$rust\
-$docker_context\
-$cmd_duration\
-$line_break\
-$character"""
-
-[palettes.tokyonight]
-base = "#1a1b26"
-fg   = "#c0caf5"
-blue = "#7aa2f7"
-cyan = "#7dcfff"
-green = "#9ece6a"
-magenta = "#bb9af7"
-red = "#f7768e"
-yellow = "#e0af68"
-orange = "#ff9e64"
-grey = "#565f89"
+format = "$directory$git_branch$git_status$cmd_duration$character"
 
 [directory]
-style = "blue bold"
+style = "#0a84ff"          # system blue, understated
 truncation_length = 3
 truncate_to_repo = true
-read_only = " "
+read_only = " 󰌾"
+format = "[$path]($style)[$read_only](#8e8e93) "
 
 [git_branch]
-symbol = " "
-style = "magenta"
-format = "[$symbol$branch]($style) "
+symbol = ""
+style = "#8e8e93"          # system gray
+format = "[$branch]($style) "
 
 [git_status]
-style = "yellow"
-format = "([$all_status$ahead_behind]($style)) "
+style = "#8e8e93"
+conflicted = "!"
+untracked = "?"
+modified = "*"
+staged = "+"
+renamed = "»"
+deleted = "x"
+ahead = "↑"
+behind = "↓"
+stashed = "≡"
+format = "([$all_status$ahead_behind]($style) )"
 
 [cmd_duration]
 min_time = 2000
-style = "grey"
-format = "[ $duration]($style) "
+style = "#636366"
+format = "[$duration]($style) "
 
 [character]
-success_symbol = "[❯](green bold)"
-error_symbol = "[❯](red bold)"
-vimcmd_symbol = "[❮](cyan bold)"
-
-[nodejs]
-symbol = " "
-style = "green"
-format = "[$symbol($version )]($style)"
-detect_files = ["package.json"]
-
-[python]
-symbol = " "
-style = "yellow"
-format = "[$symbol($version )]($style)"
-
-[golang]
-symbol = " "
-style = "cyan"
-format = "[$symbol($version )]($style)"
-
-[rust]
-symbol = " "
-style = "orange"
-format = "[$symbol($version )]($style)"
-
-[docker_context]
-symbol = " "
-style = "blue"
-format = "[$symbol$context]($style) "
-only_with_files = true
+success_symbol = "[❯](#0a84ff)"
+error_symbol = "[❯](#ff453a)"
+vicmd_symbol = "[❮](#30d158)"
