@@ -1,28 +1,36 @@
 # dotfiles
 
-Reproducible macOS dev setup (Apple Silicon / Sequoia).
+Cross-platform dotfiles. Two self-contained setups sharing one repo:
 
-## Fresh machine
+| Platform | Path | What it is |
+|----------|------|-----------|
+| **macOS** | [`macos/`](macos/) | Apple Silicon / Sequoia dev setup — Homebrew, zsh + starship, Ghostty, Karabiner, VS Code, mise/uv toolchain. |
+| **Arch Linux** | [`arch/`](arch/) | Wayland desktop — niri, waybar, DankMaterialShell, tmux, p10k. |
+
+## macOS
+
 ```bash
 xcode-select --install                       # if not already present
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-git clone <this-repo> ~/dotfiles
-~/dotfiles/bootstrap.sh
+git clone https://github.com/cornellsh/dotfiles ~/dotfiles
+~/dotfiles/macos/bootstrap.sh
 ```
 
-## Layout
-- `Brewfile` — all CLI + GUI packages. Regenerate: `brew bundle dump --force --describe --file=~/dotfiles/Brewfile`
-- `zsh/.zshrc` — shell config (starship, mise, zoxide, fzf, modern CLI aliases)
+Layout:
+- `macos/Brewfile` — all CLI + GUI packages. Regenerate: `brew bundle dump --force --describe --file=~/dotfiles/macos/Brewfile`
+- `macos/zsh/.zshrc` — shell config (starship, mise, zoxide, fzf, modern CLI aliases)
+- `macos/git/` — gitconfig + global gitignore
 - `macos/defaults.sh` — system tweaks (key repeat, Finder, screenshots, Dock)
-- `karabiner/karabiner.json` — PrtSc → region screenshot to clipboard
-- `bootstrap.sh` — installs, symlinks, applies defaults
+- `macos/karabiner/karabiner.json` — PrtSc → region screenshot to clipboard; Super-key launchers; Linux-style copy/paste
+- `macos/bootstrap.sh` — installs, symlinks, applies defaults (idempotent)
 
-## Runtimes
-- **mise** owns node/go/rust/etc. — `mise use -g node@lts`
-- **uv** owns Python — `uv python install 3.13`, `uv venv`, `uv add ...`
+Runtimes: **mise** owns node/go/rust (`mise use -g node@lts`); **uv** owns Python (`uv python install 3.13`).
 
-## Screenshot to clipboard
-Native: `⌘⇧⌃4` → drag region → release → in clipboard.
-Karabiner maps **PrtSc** (and **F13**) to that shortcut. If your keyboard's
-PrtSc sends neither, open Karabiner-Elements > EventViewer to see its key_code
-and edit `karabiner/karabiner.json`.
+## Arch Linux
+
+```bash
+git clone https://github.com/cornellsh/dotfiles ~/dotfiles
+cd ~/dotfiles/arch && ./install.sh
+```
+
+niri compositor + waybar + DankMaterialShell. See [`arch/`](arch/) for details.
