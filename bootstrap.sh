@@ -3,6 +3,9 @@
 set -euo pipefail
 DOTFILES="$HOME/dotfiles"
 
+# Ensure Homebrew is on PATH even in a non-login shell
+if [ -x /opt/homebrew/bin/brew ]; then eval "$(/opt/homebrew/bin/brew shellenv)"; fi
+
 link() { ln -sfn "$1" "$2"; echo "linked $2 -> $1"; }
 
 echo "==> Installing Brewfile packages"
