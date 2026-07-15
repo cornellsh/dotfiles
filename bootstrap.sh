@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# ~/dotfiles/bootstrap.sh — idempotent setup. Run after Homebrew is installed.
+set -euo pipefail
+DOTFILES="$HOME/dotfiles"
+
+link() { ln -sfn "$1" "$2"; echo "linked $2 -> $1"; }
+
+echo "==> Installing Brewfile packages"
+brew bundle --file="$DOTFILES/Brewfile"
+
+echo "==> Symlinking configs"
+link "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
+mkdir -p "$HOME/.config/karabiner"
+link "$DOTFILES/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
+
+echo "==> Applying macOS defaults"
+bash "$DOTFILES/macos/defaults.sh"
+
+echo "==> Global runtimes via mise (edit to taste)"
+mise use -g node@lts go@latest rust@stable || true
+
+echo
+echo "Done. Remaining manual steps:"
+echo "  - Grant Karabiner-Elements permissions (System Settings > Privacy & Security)"
+echo "  - Launch Raycast, AltTab, Rectangle, Maccy once and grant Accessibility"
+echo "  - Caps Lock -> Control: System Settings > Keyboard > Modifier Keys"

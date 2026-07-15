@@ -1,0 +1,39 @@
+{
+  "global": { "show_in_menu_bar": false },
+  "profiles": [
+    {
+      "name": "Default",
+      "selected": true,
+      "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" },
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "PrtSc -> region screenshot to clipboard (Cmd+Shift+Ctrl+4)",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": { "key_code": "print_screen" },
+                "to": [
+                  {
+                    "key_code": "4",
+                    "modifiers": ["left_command", "left_shift", "left_control"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": { "key_code": "f13" },
+                "to": [
+                  {
+                    "key_code": "4",
+                    "modifiers": ["left_command", "left_shift", "left_control"]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
