@@ -2,13 +2,17 @@
  * Permission Gate Extension
  *
  * Prompts for confirmation before running potentially dangerous bash commands.
- * Patterns checked: rm -rf, sudo, chmod/chown 777
+ * Patterns checked: rm -rf, chmod/chown 777
+ * (sudo prompting removed — it was too noisy for routine admin work.)
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 export default function (pi: ExtensionAPI) {
-	const dangerousPatterns = [/\brm\s+(-rf?|--recursive)/i, /\bsudo\b/i, /\b(chmod|chown)\b.*777/i];
+	const dangerousPatterns = [
+		/\brm\s+(-rf?|--recursive)/i,
+		/\b(chmod|chown)\b.*777/i,
+	];
 
 	pi.on("tool_call", async (event, ctx) => {
 		if (event.toolName !== "bash") return undefined;
@@ -19,10 +23,16 @@ export default function (pi: ExtensionAPI) {
 		if (isDangerous) {
 			if (!ctx.hasUI) {
 				// In non-interactive mode, block by default
-				return { block: true, reason: "Dangerous command blocked (no UI for confirmation)" };
+				return {
+					block: true,
+					reason: "Dangerous command blocked (no UI for confirmation)",
+				};
 			}
 
-			const choice = await ctx.ui.select(`⚠️ Dangerous command:\n\n  ${command}\n\nAllow?`, ["Yes", "No"]);
+			const choice = await ctx.ui.select(
+				`⚠️ Dangerous command:\n\n  ${command}\n\nAllow?`,
+				["Yes", "No"],
+			);
 
 			if (choice !== "Yes") {
 				return { block: true, reason: "Blocked by user" };

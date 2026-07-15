@@ -166,6 +166,13 @@ async def cmd_send(c, args):
     print(f"sent (id={m.id}) to {args.chat}")
 
 
+async def cmd_sendfile(c, args):
+    entity = await _resolve(c, args.chat)
+    m = await c.send_file(entity, args.path, caption=args.caption or "",
+                          force_document=True)
+    print(f"sent file (id={m.id}) to {args.chat}")
+
+
 async def cmd_reply(c, args):
     entity = await _resolve(c, args.chat)
     m = await c.send_message(entity, args.text, reply_to=args.msg_id)
@@ -203,6 +210,12 @@ def build_parser():
     sp.add_argument("text")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(fn=cmd_send)
+
+    sp = sub.add_parser("sendfile", help="send a file as a document")
+    sp.add_argument("chat")
+    sp.add_argument("path")
+    sp.add_argument("--caption", default="")
+    sp.set_defaults(fn=cmd_sendfile)
 
     sp = sub.add_parser("reply", help="reply to a message")
     sp.add_argument("chat")

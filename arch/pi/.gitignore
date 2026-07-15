@@ -5,3 +5,7 @@ npm/
 git/
 mcp-cache.json
 *.log
+
+# Secret config (deployed from *.example.json by install.sh)
+web-search.json
+extensions/clarity/config.json

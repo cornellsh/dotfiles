@@ -1,0 +1,11 @@
+{
+  "defaultBackend": "auto",
+  "backends": {
+    "exa-mcp": { "enabled": true },
+    "marginalia": { "enabled": true },
+    "firecrawl": { "enabled": true, "apiKey": "!jq -r .firecrawlApiKey ~/.pi/web-search.json" },
+    "brave": { "enabled": true, "apiKey": "!jq -r .braveApiKey ~/.pi/web-search.json" },
+    "exa": { "enabled": true, "apiKey": "!jq -r .exaApiKey ~/.pi/web-search.json" },
+    "tavily": { "enabled": true, "apiKey": "!jq -r .tavilyApiKey ~/.pi/web-search.json" }
+  }
+}

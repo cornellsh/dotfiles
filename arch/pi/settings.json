@@ -18,6 +18,17 @@
   },
   "packages": [
     "npm:pi-claude-oauth-adapter",
-    "npm:pi-web-access"
-  ]
+    "npm:pi-web-access",
+    "npm:pi-idle-time",
+    "npm:@hypabolic/pi-hypa",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:pi-lens",
+    "npm:pi-simplify",
+    "npm:@ff-labs/pi-fff",
+    "npm:@gotgenes/pi-subagents",
+    "npm:@juicesharp/rpiv-btw",
+    "npm:@quintinshaw/pi-dynamic-workflows",
+    "npm:pi-search-hub"
+  ],
+  "lastChangelogVersion": "0.80.7"
 }

@@ -27,9 +27,6 @@ import { truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
 export default function (pi: ExtensionAPI) {
 	let enabled = true;
 
-	const fmt = (n: number): string =>
-		n < 1000 ? `${n}` : n < 1_000_000 ? `${(n / 1000).toFixed(1)}k` : `${(n / 1_000_000).toFixed(1)}M`;
-
 	const install = (ctx: ExtensionContext) => {
 		ctx.ui.setFooter((tui, theme, footerData) => {
 			const unsub = footerData.onBranchChange(() => tui.requestRender());
@@ -39,15 +36,11 @@ export default function (pi: ExtensionAPI) {
 				invalidate() {},
 				render(width: number): string[] {
 					// Aggregate session usage; keep the most recent turn's context size.
-					let input = 0,
-						output = 0,
-						cost = 0,
+					let cost = 0,
 						lastContext = 0;
 					for (const e of ctx.sessionManager.getBranch()) {
 						if (e.type === "message" && e.message.role === "assistant") {
 							const m = e.message as AssistantMessage;
-							input += m.usage.input;
-							output += m.usage.output;
 							cost += m.usage.cost.total;
 							lastContext = m.usage.input + m.usage.cacheRead;
 						}
@@ -72,8 +65,7 @@ export default function (pi: ExtensionAPI) {
 						segs.push(bar + theme.fg(level, ` ${Math.round(pct * 100)}%`));
 					}
 
-					// Tokens + cost
-					segs.push(theme.fg("dim", `↑${fmt(input)} ↓${fmt(output)}`));
+					// Cost
 					segs.push(theme.fg("dim", `$${cost.toFixed(3)}`));
 
 					const left = " " + segs.join(sep);

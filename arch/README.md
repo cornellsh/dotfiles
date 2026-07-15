@@ -39,15 +39,26 @@ manage registry plugins.
 
 ## Pi — `~/.pi/agent`
 
-- **settings.json** — theme, model, compaction, pinned packages.
-- **extensions/** — `plan-mode`, `subagent`, `todo`, `notify`, `git-checkpoint`,
-  `permission-gate`, `protected-paths`, `custom-footer`, `hide-oauth-status`.
+- **settings.json** — theme, model, compaction, and the pinned package set
+  (installed automatically on `install.sh pi`).
+- **extensions/** — `plan-mode`, `notify`, `git-checkpoint`, `permission-gate`,
+  `protected-paths`, `custom-footer`, `hide-oauth-status`, `clarity`,
+  `claude-oauth-worker-fix`, `search` (web-search-hub config). Subagent/todo are
+  now packages (`@gotgenes/pi-subagents`, `@juicesharp/rpiv-todo`).
 - **themes/** — `cornell.sh`.
 - **prompts/** — `commit`, `explain`, `review`, `test`.
-- **packages** — `pi-claude-oauth-adapter`, `pi-web-access`.
+- **skills/** — `clarity` (Microsoft Clarity analytics tools).
+- **packages** — `pi-claude-oauth-adapter`, `pi-web-access`, `pi-idle-time`,
+  `pi-hypa`, `rpiv-todo`, `pi-lens`, `pi-simplify`, `pi-fff`, `pi-subagents`,
+  `rpiv-btw`, `pi-dynamic-workflows`, `pi-search-hub`.
+
+**Secrets** (never tracked; scaffolded from `*.example.json` on install):
+`~/.pi/web-search.json` (search API keys) and
+`extensions/clarity/config.json` (Clarity token). Fill them in after install.
 
 No MCP servers. The equivalents are skills in `~/.agents/skills` (shared with
-OpenCode): `imagegen-cli`, `lightpanda`, `telegram-tools`.
+OpenCode): `agent-browser`, `copy-that-sells`, `cro`, `customer-research`,
+`hubstaff`, `imagegen-cli`, `telegram-tools`.
 
 **telegram-tools** — `tg` CLI (Telethon via `uv`): `tg me · chats · read ·
 search · send · reply`. Credentials from the environment or `~/.zsh_secrets`.
@@ -55,5 +66,5 @@ search · send · reply`. Credentials from the environment or `~/.zsh_secrets`.
 ## Requirements
 
 `git` · `zsh` · `tmux` · `node`/`npm` (+ `bun` for OpenCode) · `uv`
-(telegram-tools) · `code` CLI (VS Code extensions) · `lightpanda` at
-`~/.local/bin` (optional).
+(telegram-tools) · `jq` (pi package install / search keys) · `code` CLI
+(VS Code extensions) · Chrome/Chromium (agent-browser, optional).
