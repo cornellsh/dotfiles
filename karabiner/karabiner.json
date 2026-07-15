@@ -8,28 +8,55 @@
       "complex_modifications": {
         "rules": [
           {
-            "description": "PrtSc -> region screenshot to clipboard (Cmd+Shift+Ctrl+4)",
+            "description": "Windows key -> Super (distinct launcher modifier, mapped to right_command)",
             "manipulators": [
               {
                 "type": "basic",
-                "from": { "key_code": "print_screen" },
-                "to": [
-                  {
-                    "key_code": "4",
-                    "modifiers": ["left_command", "left_shift", "left_control"]
-                  }
-                ]
-              },
+                "from": { "key_code": "left_command", "modifiers": { "optional": ["any"] } },
+                "to": [{ "key_code": "right_command" }]
+              }
+            ]
+          },
+          {
+            "description": "Super (Windows) + key -> launch apps",
+            "manipulators": [
+              { "type": "basic", "from": { "key_code": "t", "modifiers": { "mandatory": ["right_command"] } },
+                "to": [{ "shell_command": "open -na Ghostty" }] },
+              { "type": "basic", "from": { "key_code": "c", "modifiers": { "mandatory": ["right_command"] } },
+                "to": [{ "shell_command": "open -a 'Visual Studio Code'" }] },
+              { "type": "basic", "from": { "key_code": "e", "modifiers": { "mandatory": ["right_command"] } },
+                "to": [{ "shell_command": "open ~" }] },
+              { "type": "basic", "from": { "key_code": "b", "modifiers": { "mandatory": ["right_command"] } },
+                "to": [{ "shell_command": "open -a Safari" }] }
+            ]
+          },
+          {
+            "description": "Left Ctrl -> Command (Linux-style copy/paste), except in terminals",
+            "manipulators": [
               {
                 "type": "basic",
-                "from": { "key_code": "f13" },
-                "to": [
+                "from": { "key_code": "left_control", "modifiers": { "optional": ["any"] } },
+                "to": [{ "key_code": "left_command" }],
+                "conditions": [
                   {
-                    "key_code": "4",
-                    "modifiers": ["left_command", "left_shift", "left_control"]
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$"
+                    ]
                   }
                 ]
               }
+            ]
+          },
+          {
+            "description": "PrtSc / F13 -> region screenshot to clipboard",
+            "manipulators": [
+              { "type": "basic", "from": { "key_code": "print_screen" },
+                "to": [{ "key_code": "4", "modifiers": ["left_command", "left_shift", "left_control"] }] },
+              { "type": "basic", "from": { "key_code": "f13" },
+                "to": [{ "key_code": "4", "modifiers": ["left_command", "left_shift", "left_control"] }] }
             ]
           }
         ]
