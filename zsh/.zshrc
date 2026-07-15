@@ -22,7 +22,6 @@ alias cat='bat'
 alias grep='rg'
 alias find='fd'
 alias cd='z'
-alias vi='nvim'
 alias g='git'
 
 # --- Tool init ---

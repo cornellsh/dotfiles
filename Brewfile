@@ -13,6 +13,7 @@ brew "fzf"                   # fuzzy finder
 brew "git-delta"             # git diff pager
 brew "jq"
 brew "yq"
+brew "duti"                  # set default app handlers (e.g. default terminal)
 brew "starship"              # prompt
 brew "mise"                  # runtime version manager (node/go/rust/...)
 brew "uv"                    # Python: versions + projects + tools
