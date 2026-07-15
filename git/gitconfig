@@ -1,0 +1,57 @@
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+	default = current
+[fetch]
+	prune = true
+[rebase]
+	autoStash = true
+[rerere]
+	enabled = true
+[merge]
+	conflictstyle = zdiff3
+	tool = vscode
+[diff]
+	colorMoved = default
+[commit]
+	verbose = true
+	gpgsign = true
+[color]
+	ui = auto
+[core]
+	editor = code --wait
+	pager = delta
+	excludesfile = /Users/cornell/.gitignore_global
+[credential]
+	helper = osxkeychain
+[user]
+	email = pavlicek7772@gmail.com
+	signingkey = /Users/cornell/.ssh/id_ed25519.pub
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+	side-by-side = false
+[alias]
+	st = status -sb
+	co = checkout
+	br = branch
+	lg = log --graph --oneline --decorate --all
+	last = log -1 HEAD --stat
+	unstage = reset HEAD --
+	amend = commit --amend --no-edit
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[gpg]
+	format = ssh
+[tag]
+	gpgsign = true
+[gpg "ssh"]
+	allowedSignersFile = /Users/cornell/.ssh/allowed_signers
