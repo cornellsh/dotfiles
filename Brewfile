@@ -25,6 +25,19 @@ brew "coreutils"             # GNU utils, g-prefixed (gsed, gdate, ...)
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
+# --- Dev CLI quality-of-life ---
+brew "lazygit"               # git TUI
+brew "btop"                  # system monitor TUI
+brew "git-lfs"
+brew "tealdeer"              # tldr (fast man-page examples)
+brew "dust"                  # du, visual
+brew "hyperfine"             # benchmarking
+brew "gnupg"
+
+# --- Database clients (containerized DBs, host clients) ---
+brew "libpq"                 # psql, pg_dump (keg-only; PATH set in .zshrc)
+brew "redis"                 # redis-cli
+
 # --- Fonts ---
 cask "font-jetbrains-mono-nerd-font"
 cask "font-sf-mono-nerd-font-ligaturized"  # Apple SF Mono + icons

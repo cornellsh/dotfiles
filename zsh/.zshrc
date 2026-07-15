@@ -33,3 +33,4 @@ source <(fzf --zsh)
 # --- Plugins (order matters: syntax-highlighting last) ---
 source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
