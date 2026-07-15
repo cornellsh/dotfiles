@@ -1,6 +1,6 @@
 {
   "// theme": "clean, macOS-native — VS Code built-in Default Dark Modern",
-  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.colorTheme": "Dark Modern",
   "workbench.iconTheme": "material-icon-theme",
 
   "// font": "Apple SF Mono (ligaturized nerd font), matches the terminal",
