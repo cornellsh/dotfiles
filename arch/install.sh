@@ -5,6 +5,7 @@
 
 set -e
 cd "$(dirname "${BASH_SOURCE[0]}")"
+REPO="$(cd .. && pwd)"   # repo root; pi/ and agents/ are shared (not arch-only)
 
 # ─── palette (cornell.sh) ───────────────────────────────────────────────────
 A=$'\033[38;2;189;147;249m' # accent  (purple)
@@ -139,8 +140,8 @@ install_vscode() {
 
 install_skills() {
 	mkdir -p ~/.agents/skills
-	cp -r agents/skills/. ~/.agents/skills/ 2>/dev/null || true
-	cp agents/.skill-lock.json ~/.agents/.skill-lock.json 2>/dev/null || true
+	cp -r "$REPO"/agents/skills/. ~/.agents/skills/ 2>/dev/null || true
+	cp "$REPO"/agents/.skill-lock.json ~/.agents/.skill-lock.json 2>/dev/null || true
 	find ~/.agents/skills -name ".git" -type d -exec rm -rf {} + 2>/dev/null || true
 	chmod +x ~/.agents/skills/telegram-tools/tg 2>/dev/null || true
 	ok "skills → ~/.agents/skills"
@@ -167,20 +168,20 @@ install_opencode() {
 install_pi() {
 	say "Pi"
 	mkdir -p ~/.pi/agent/themes ~/.pi/agent/prompts ~/.pi/agent/extensions ~/.pi/agent/skills
-	cp pi/settings.json pi/AGENTS.md ~/.pi/agent/ # no secrets: auth.json is never tracked
-	cp -r pi/themes/. ~/.pi/agent/themes/ 2>/dev/null || true
-	cp -r pi/prompts/. ~/.pi/agent/prompts/ 2>/dev/null || true
-	cp -r pi/extensions/. ~/.pi/agent/extensions/ 2>/dev/null || true
-	cp -r pi/skills/. ~/.pi/agent/skills/ 2>/dev/null || true
+	cp "$REPO"/pi/settings.json "$REPO"/pi/AGENTS.md ~/.pi/agent/ # no secrets: auth.json is never tracked
+	cp -r "$REPO"/pi/themes/. ~/.pi/agent/themes/ 2>/dev/null || true
+	cp -r "$REPO"/pi/prompts/. ~/.pi/agent/prompts/ 2>/dev/null || true
+	cp -r "$REPO"/pi/extensions/. ~/.pi/agent/extensions/ 2>/dev/null || true
+	cp -r "$REPO"/pi/skills/. ~/.pi/agent/skills/ 2>/dev/null || true
 	ok "config · extensions · themes · prompts · skills"
 
 	# secret files (never tracked) — scaffold from templates only if missing
 	if [ ! -f ~/.pi/web-search.json ]; then
-		cp pi/web-search.example.json ~/.pi/web-search.json
+		cp "$REPO"/pi/web-search.example.json ~/.pi/web-search.json
 		warn "created ~/.pi/web-search.json — add your search API keys"
 	fi
 	if [ ! -f ~/.pi/agent/extensions/clarity/config.json ]; then
-		cp pi/extensions/clarity/config.example.json ~/.pi/agent/extensions/clarity/config.json
+		cp "$REPO"/pi/extensions/clarity/config.example.json ~/.pi/agent/extensions/clarity/config.json
 		warn "created clarity/config.json — add your Clarity Data-Export token"
 	fi
 
@@ -189,7 +190,7 @@ install_pi() {
 		if command -v jq >/dev/null 2>&1; then
 			while IFS= read -r pkg; do
 				[ -n "$pkg" ] && pi install "$pkg" >/dev/null 2>&1 || true
-			done < <(jq -r '.packages[]?' pi/settings.json)
+			done < <(jq -r '.packages[]?' "$REPO"/pi/settings.json)
 		else
 			pi install npm:pi-claude-oauth-adapter >/dev/null 2>&1 || true
 			pi install npm:pi-web-access >/dev/null 2>&1 || true

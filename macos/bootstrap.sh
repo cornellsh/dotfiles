@@ -3,6 +3,7 @@
 set -euo pipefail
 # Resolve this script's own dir so it works regardless of clone location.
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO="$(cd "$DOTFILES/.." && pwd)"   # pi/ and agents/ are shared, not macos-only
 
 # Ensure Homebrew is on PATH even in a non-login shell
 if [ -x /opt/homebrew/bin/brew ]; then eval "$(/opt/homebrew/bin/brew shellenv)"; fi
@@ -25,6 +26,30 @@ mkdir -p "$HOME/.config/karabiner"
 link "$DOTFILES/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
 mkdir -p "$HOME/Library/Application Support/Code/User"
 link "$DOTFILES/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
+
+echo "==> Installing pi (shared config, extensions, skills)"
+PI="$REPO/pi"
+mkdir -p "$HOME/.pi/agent"/{themes,prompts,extensions,skills}
+cp "$PI/settings.json" "$PI/AGENTS.md" "$HOME/.pi/agent/"   # secrets never tracked
+cp -R "$PI/themes/."     "$HOME/.pi/agent/themes/"
+cp -R "$PI/prompts/."    "$HOME/.pi/agent/prompts/"
+cp -R "$PI/extensions/." "$HOME/.pi/agent/extensions/"
+cp -R "$PI/skills/."     "$HOME/.pi/agent/skills/"
+[ -f "$HOME/.pi/web-search.json" ] || cp "$PI/web-search.example.json" "$HOME/.pi/web-search.json"
+[ -f "$HOME/.pi/agent/extensions/clarity/config.json" ] || \
+  cp "$PI/extensions/clarity/config.example.json" "$HOME/.pi/agent/extensions/clarity/config.json"
+if command -v pi >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then
+  while IFS= read -r pkg; do
+    [ -n "$pkg" ] && pi install "$pkg" >/dev/null 2>&1 || true
+  done < <(jq -r '.packages[]?' "$PI/settings.json")
+fi
+
+echo "==> Installing shared agent skills"
+mkdir -p "$HOME/.agents/skills"
+cp -R "$REPO/agents/skills/." "$HOME/.agents/skills/"
+cp "$REPO/agents/.skill-lock.json" "$HOME/.agents/.skill-lock.json" 2>/dev/null || true
+find "$HOME/.agents/skills" -name .git -type d -exec rm -rf {} + 2>/dev/null || true
+chmod +x "$HOME/.agents/skills/telegram-tools/tg" 2>/dev/null || true
 
 echo "==> Applying macOS defaults"
 bash "$DOTFILES/defaults.sh"
