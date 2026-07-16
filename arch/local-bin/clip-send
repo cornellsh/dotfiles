@@ -53,8 +53,15 @@ set -e
 d="$HOME/'"$REMOTE_DIR"'"; mkdir -p "$d"; p="$d/'"$fname"'"; cat > "$p"
 t="'"$FORCE_TARGET"'"
 if [ -z "$t" ]; then
-	# most-recently-active ATTACHED client wins; detached/stale sessions ignored
+	# 1) prefer the pane of the most-recently-active ATTACHED client (what you
+	#    are looking at right now).
 	t=$(tmux list-clients -F "#{client_activity} #{client_session}" 2>/dev/null \
+		| sort -rn | head -1 | cut -d" " -f2-)
+fi
+if [ -z "$t" ]; then
+	# 2) nothing attached (session running detached / via web): fall back to the
+	#    most-recently-active PANE anywhere on the server.
+	t=$(tmux list-panes -a -F "#{window_activity} #{session_name}:#{window_index}.#{pane_index}" 2>/dev/null \
 		| sort -rn | head -1 | cut -d" " -f2-)
 fi
 if [ -n "$t" ] && tmux send-keys -t "$t" -l "$p " 2>/dev/null; then
