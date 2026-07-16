@@ -30,6 +30,7 @@ COMPONENTS=(
 	"vscode|VS Code|extensions only (no config)"
 	"pi|Pi|config · extensions · themes · skills"
 	"tmux|Tmux|.tmux.conf"
+	"ssh|SSH|~/.ssh multiplexing for fast clip-send"
 )
 N_ITEMS=${#COMPONENTS[@]}
 declare -a SEL
@@ -194,6 +195,21 @@ install_tmux() {
 			sub "killed stale tmux server"
 		fi
 	fi
+}
+
+install_ssh() {
+	say "SSH"
+	mkdir -p ~/.ssh/sockets ~/.ssh/config.d
+	chmod 700 ~/.ssh ~/.ssh/sockets ~/.ssh/config.d
+	cp ssh/tailnet.conf ~/.ssh/config.d/tailnet.conf
+	touch ~/.ssh/config
+	chmod 600 ~/.ssh/config
+	if ! grep -q '^Include config.d/\*.conf' ~/.ssh/config; then
+		printf 'Include config.d/*.conf\n\n%s' "$(cat ~/.ssh/config)" >~/.ssh/config.tmp \
+			&& mv ~/.ssh/config.tmp ~/.ssh/config
+		sub "prepended Include to ~/.ssh/config"
+	fi
+	ok "~/.ssh multiplexing"
 }
 
 # ─── selection from args (non-interactive) ──────────────────────────────────

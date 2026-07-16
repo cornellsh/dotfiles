@@ -29,6 +29,16 @@ mkdir -p "$HOME/.config/karabiner"
 link "$DOTFILES/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
 mkdir -p "$HOME/.local/bin"
 link "$DOTFILES/bin/clip-send" "$HOME/.local/bin/clip-send"
+# SSH multiplexing (fast clip-send): drop-in conf + an Include if not present.
+mkdir -p "$HOME/.ssh/sockets" "$HOME/.ssh/config.d"
+chmod 700 "$HOME/.ssh" "$HOME/.ssh/sockets" "$HOME/.ssh/config.d"
+link "$DOTFILES/ssh/tailnet.conf" "$HOME/.ssh/config.d/tailnet.conf"
+touch "$HOME/.ssh/config"; chmod 600 "$HOME/.ssh/config"
+if ! grep -q '^Include config.d/\*.conf' "$HOME/.ssh/config"; then
+	printf 'Include config.d/*.conf\n\n%s' "$(cat "$HOME/.ssh/config")" >"$HOME/.ssh/config.tmp" \
+		&& mv "$HOME/.ssh/config.tmp" "$HOME/.ssh/config"
+	echo "prepended 'Include config.d/*.conf' to ~/.ssh/config"
+fi
 mkdir -p "$HOME/Library/Application Support/Code/User"
 link "$DOTFILES/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 
