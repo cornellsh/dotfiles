@@ -1,5 +1,9 @@
 # ~/.zshrc — symlinked from ~/dotfiles/zsh/.zshrc
 
+# --- Locale (SSH sessions often start with none → mangles UTF-8 glyphs like ❯) ---
+export LANG="${LANG:-en_US.UTF-8}"
+export LC_CTYPE="${LC_CTYPE:-en_US.UTF-8}"
+
 # --- Homebrew (Apple Silicon) ---
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -38,3 +42,15 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # --- Secrets (untracked; see ~/.config/zsh/secrets.zsh) ---
 [ -f "$HOME/.config/zsh/secrets.zsh" ] && source "$HOME/.config/zsh/secrets.zsh"
+
+# --- Auto-attach tmux on SSH login ---
+# When connecting in over the tailnet (or any SSH), drop straight into tmux so
+# you see whatever is already running. Attaches to the most-recently-used
+# existing session; if none exist, starts "main". Skipped if already in tmux.
+if command -v tmux >/dev/null 2>&1 && [[ -n "$SSH_CONNECTION" && -z "$TMUX" && "$-" == *i* ]]; then
+  if tmux has-session 2>/dev/null; then
+    tmux attach
+  else
+    tmux new-session -s main
+  fi
+fi
