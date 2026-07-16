@@ -14,7 +14,7 @@ binds {
         spawn "dms" "ipc" "call" "clipboard" "toggle"; 
     }
     Mod+Shift+V hotkey-overlay-title="Send clipboard image to remote tmux" { 
-        spawn "sh" "-lc" "clip-send"; 
+        spawn "sh" "-c" "$HOME/.local/bin/clip-send >> /tmp/clip-send.log 2>&1"; 
     }
 
     Mod+M hotkey-overlay-title="Task Manager" { 
