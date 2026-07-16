@@ -1,4 +1,5 @@
-ssh/
+ssh/*
+!ssh/tailnet.conf
 .profile.local
 *.key
 *.pem
