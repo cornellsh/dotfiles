@@ -27,7 +27,9 @@
               { "type": "basic", "from": { "key_code": "e", "modifiers": { "mandatory": ["right_command"] } },
                 "to": [{ "shell_command": "open ~" }] },
               { "type": "basic", "from": { "key_code": "b", "modifiers": { "mandatory": ["right_command"] } },
-                "to": [{ "shell_command": "open -a Safari" }] }
+                "to": [{ "shell_command": "open -a Safari" }] },
+              { "type": "basic", "from": { "key_code": "i", "modifiers": { "mandatory": ["right_command"] } },
+                "to": [{ "shell_command": "/bin/zsh -lc clip-send" }] }
             ]
           },
           {

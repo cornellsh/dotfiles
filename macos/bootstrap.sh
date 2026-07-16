@@ -27,6 +27,8 @@ mkdir -p "$HOME/.config/ghostty"
 link "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"
 mkdir -p "$HOME/.config/karabiner"
 link "$DOTFILES/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
+mkdir -p "$HOME/.local/bin"
+link "$DOTFILES/bin/clip-send" "$HOME/.local/bin/clip-send"
 mkdir -p "$HOME/Library/Application Support/Code/User"
 link "$DOTFILES/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 

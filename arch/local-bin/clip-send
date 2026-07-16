@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# clip-send — push the LOCAL clipboard image to a remote host over SSH and drop
+# its path into the tmux pane you're looking at, so pi can Read it as an image.
+#
+# Cross-platform CLIENT tool (macOS: pngpaste · Wayland: wl-paste · X11: xclip).
+# Install on the machine you TYPE on; it targets the Mac by default.
+#
+#   CLIP_REMOTE       ssh host           (default: cornell-mac-studio)
+#   CLIP_REMOTE_DIR   remote folder      (default: clip-inbox, under $HOME)
+#   CLIP_TMUX_TARGET  force a pane/sess  (default: auto — active attached client)
+#
+# No image on the clipboard, an offline host, or no running tmux all fail loudly
+# (or degrade to "uploaded, paste manually") instead of doing something silently
+# wrong. Idempotent-safe: every capture gets a unique timestamped filename.
+set -euo pipefail
+
+REMOTE="${CLIP_REMOTE:-cornell-mac-studio}"
+REMOTE_DIR="${CLIP_REMOTE_DIR:-clip-inbox}"
+FORCE_TARGET="${CLIP_TMUX_TARGET:-}"
+
+die() { printf 'clip-send: %s\n' "$1" >&2; exit "${2:-1}"; }
+
+tmp="$(mktemp -t clip-send.XXXXXX)" || die "cannot create a temp file"
+trap 'rm -f "$tmp"' EXIT
+
+# --- 1. read a clipboard IMAGE on this machine (PNG bytes -> $tmp) ------------
+if command -v pngpaste >/dev/null 2>&1; then                 # macOS
+	pngpaste "$tmp" 2>/dev/null || die "no image on the clipboard"
+elif command -v wl-paste >/dev/null 2>&1; then               # Wayland
+	types="$(wl-paste --list-types 2>/dev/null || true)"
+	printf '%s\n' "$types" | grep -q '^image/' || die "no image on the clipboard"
+	if printf '%s\n' "$types" | grep -qx 'image/png'; then
+		wl-paste --type image/png >"$tmp"
+	else
+		t="$(printf '%s\n' "$types" | grep '^image/' | head -1)"
+		wl-paste --type "$t" >"$tmp"
+	fi
+elif command -v xclip >/dev/null 2>&1; then                  # X11
+	xclip -selection clipboard -t image/png -o >"$tmp" 2>/dev/null \
+		|| die "no image on the clipboard"
+else
+	die "no clipboard tool found — install pngpaste (macOS), wl-clipboard, or xclip"
+fi
+[ -s "$tmp" ] || die "the clipboard image was empty"
+
+fname="clip-$(date +%Y%m%d-%H%M%S)-$$.png"
+
+# --- 2. one SSH hop: save the file, resolve the live pane, inject the path ----
+# REMOTE_DIR/fname are locally-controlled and safe to interpolate; $HOME stays
+# remote. The image rides in on stdin; the remote 'cat' consumes it.
+remote_script='
+set -e
+d="$HOME/'"$REMOTE_DIR"'"; mkdir -p "$d"; p="$d/'"$fname"'"; cat > "$p"
+t="'"$FORCE_TARGET"'"
+if [ -z "$t" ]; then
+	# most-recently-active ATTACHED client wins; detached/stale sessions ignored
+	t=$(tmux list-clients -F "#{client_activity} #{client_session}" 2>/dev/null \
+		| sort -rn | head -1 | cut -d" " -f2-)
+fi
+if [ -n "$t" ] && tmux send-keys -t "$t" -l "$p " 2>/dev/null; then
+	printf "PASTED\t%s\t%s" "$t" "$p"
+else
+	printf "UPLOADED\t\t%s" "$p"
+fi
+'
+out="$(ssh "$REMOTE" "$remote_script" <"$tmp")" \
+	|| die "ssh to $REMOTE failed (host offline or unreachable?)"
+
+# --- 3. report ---------------------------------------------------------------
+status="${out%%$'\t'*}"; rest="${out#*$'\t'}"
+target="${rest%%$'\t'*}"; path="${rest#*$'\t'}"
+case "$status" in
+	PASTED)   echo "clip-send: pasted into tmux[$target] -> $path" ;;
+	UPLOADED) echo "clip-send: uploaded -> $path (no attached tmux; paste it yourself)" ;;
+	*)        echo "clip-send: $out" ;;
+esac

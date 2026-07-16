@@ -33,6 +33,7 @@ brew "tealdeer"              # tldr (fast man-page examples)
 brew "dust"                  # du, visual
 brew "hyperfine"             # benchmarking
 brew "gnupg"
+brew "pngpaste"             # read clipboard image to a file (clip-send)
 
 # --- Database clients (containerized DBs, host clients) ---
 brew "libpq"                 # psql, pg_dump (keg-only; PATH set in .zshrc)

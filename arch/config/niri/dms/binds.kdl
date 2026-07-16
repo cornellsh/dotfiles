@@ -13,6 +13,9 @@ binds {
     Mod+V hotkey-overlay-title="Clipboard Manager" { 
         spawn "dms" "ipc" "call" "clipboard" "toggle"; 
     }
+    Mod+Shift+V hotkey-overlay-title="Send clipboard image to remote tmux" { 
+        spawn "sh" "-lc" "clip-send"; 
+    }
 
     Mod+M hotkey-overlay-title="Task Manager" { 
         spawn "dms" "ipc" "call" "processlist" "toggle"; 
