@@ -291,7 +291,7 @@ binds {
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Shift+T { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+V hotkey-overlay-title="Send clipboard image to remote tmux" { spawn "sh" "-c" "$HOME/.local/bin/clip-send >> /tmp/clip-send.log 2>&1"; }
     Mod+W { toggle-column-tabbed-display; }
 
     // === Focus Navigation ===
