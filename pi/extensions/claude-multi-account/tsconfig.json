@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "typeRoots": [
+      "/home/user/.bun/install/global/node_modules/@types",
+      "/home/user/.pi/agent/npm/node_modules/@types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@earendil-works/pi-coding-agent": [
+        "/home/user/.bun/install/global/node_modules/@earendil-works/pi-coding-agent"
+      ],
+      "@mariozechner/*": ["/home/user/.bun/install/global/node_modules/@mariozechner/*"]
+    },
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowJs": true
+  },
+  "include": ["*.ts", "*.mjs"]
+}

@@ -53,6 +53,8 @@ cp -R "$PI/skills/." "$HOME/.pi/agent/skills/"
 [ -f "$HOME/.pi/web-search.json" ] || cp "$PI/web-search.example.json" "$HOME/.pi/web-search.json"
 [ -f "$HOME/.pi/agent/extensions/clarity/config.json" ] ||
 	cp "$PI/extensions/clarity/config.example.json" "$HOME/.pi/agent/extensions/clarity/config.json"
+mkdir -p "$HOME/.local/bin"
+link "$PI/bin/claude-accounts" "$HOME/.local/bin/claude-accounts" # multi-account rotator CLI (needs bun)
 if command -v pi >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then
 	while IFS= read -r pkg; do
 		[ -n "$pkg" ] && pi install "$pkg" >/dev/null 2>&1 || true

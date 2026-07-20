@@ -151,7 +151,9 @@ install_pi() {
 	cp -r "$REPO"/pi/prompts/. ~/.pi/agent/prompts/ 2>/dev/null || true
 	cp -r "$REPO"/pi/extensions/. ~/.pi/agent/extensions/ 2>/dev/null || true
 	cp -r "$REPO"/pi/skills/. ~/.pi/agent/skills/ 2>/dev/null || true
-	ok "config · extensions · themes · prompts · skills"
+	mkdir -p ~/.local/bin
+	cp "$REPO"/pi/bin/claude-accounts ~/.local/bin/claude-accounts 2>/dev/null && chmod +x ~/.local/bin/claude-accounts || true
+	ok "config · extensions · themes · prompts · skills · claude-accounts"
 
 	# secret files (never tracked) — scaffold from templates only if missing
 	if [ ! -f ~/.pi/web-search.json ]; then

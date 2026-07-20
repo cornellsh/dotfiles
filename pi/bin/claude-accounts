@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Launcher for the pi Claude multi-account rotator CLI.
+# Deployed to ~/.local/bin by macos/bootstrap.sh (symlink) and arch/install.sh (copy).
+exec bun "$HOME/.pi/agent/extensions/claude-multi-account/cli.ts" "$@"
